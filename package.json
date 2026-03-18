@@ -15,12 +15,11 @@
     "cors": "^2.8.5",
     "axios": "^1.6.0"
   },
- "scripts": {
-  "start": "set PORT=3000 && react-scripts start",
-  "server": "node server-working.js",
+"scripts": {
+  "start": "node server.js",
+  "server": "node server.js",
   "dev": "concurrently \"npm run server\" \"npm start\""
- 
-  },
+},
   "browserslist": {
     "production": [
       ">0.2%",
