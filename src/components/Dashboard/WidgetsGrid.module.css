@@ -1,0 +1,6 @@
+.widgetsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  flex: 1;
+}
