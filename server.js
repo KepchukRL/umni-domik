@@ -3,7 +3,7 @@ const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
-
+const path = require('path');
 // Импортируем модели из index.js
 const { sequelize, User, Widget, UserWidget, Notification, Op } = require('./src/models');
 
@@ -21,6 +21,20 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+
+
+
+// Обслуживание статических файлов из папки build
+app.use(express.static(path.join(__dirname, 'build')));
+
+// Все маршруты, не начинающиеся с /api, отдают index.html
+app.get('/*splat', (req, res) => {
+  if (!req.path.startsWith('/api')) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  }
+});
+
 
 // ============== МИДЛВЕРЫ ==============
 
