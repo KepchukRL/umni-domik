@@ -1,22 +1,17 @@
 import axios from 'axios';
 
-// Определяем базовый URL в зависимости от окружения
-const getBaseURL = () => {
-  // Если мы на Render (или другом хостинге)
-  if (process.env.NODE_ENV === 'production') {
-    // Здесь должен быть URL вашего сервера на Render
-    return 'https://umni-domik.onrender.com/api';
-  }
-  // Для локальной разработки
-  return 'http://localhost:5002/api';
-};
+// Определяем режим работы
+const isProduction = !window.location.hostname.includes('localhost');
+const baseURL = isProduction 
+  ? 'https://umni-domik.onrender.com/api'
+  : 'http://localhost:5002/api';
 
-const API_URL = getBaseURL();
-
-console.log('🌐 API URL:', API_URL, 'Mode:', process.env.NODE_ENV);
+console.log('🚀 Режим:', isProduction ? 'PRODUCTION' : 'DEVELOPMENT');
+console.log('🌐 API URL:', baseURL);
+console.log('📍 Хост:', window.location.hostname);
 
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: baseURL,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -47,9 +42,12 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
+    if (error.code === 'ERR_NETWORK') {
+      console.error('❌ Сервер недоступен. Проверьте:', baseURL);
+    }
     console.error('❌ Response error:', error.message);
     return Promise.reject(error);
   }
 );
 
-export default api;
+export default api; 
