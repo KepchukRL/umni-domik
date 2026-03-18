@@ -3,7 +3,7 @@ import axios from 'axios';
 // Определяем режим работы
 const isProduction = !window.location.hostname.includes('localhost');
 const baseURL = isProduction 
-  ? 'https://umni-domik.onrender.com/api'
+  ? 'https://umni-domik.onrender.com//api'
   : 'http://localhost:5002/api';
 
 console.log('🚀 Режим:', isProduction ? 'PRODUCTION' : 'DEVELOPMENT');
