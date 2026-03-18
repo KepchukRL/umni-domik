@@ -1,6 +1,19 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5002/api';
+// Определяем базовый URL в зависимости от окружения
+const getBaseURL = () => {
+  // Если мы на Render (или другом хостинге)
+  if (process.env.NODE_ENV === 'production') {
+    // Здесь должен быть URL вашего сервера на Render
+    return 'https://umni-domik.onrender.com/api';
+  }
+  // Для локальной разработки
+  return 'http://localhost:5002/api';
+};
+
+const API_URL = getBaseURL();
+
+console.log('🌐 API URL:', API_URL, 'Mode:', process.env.NODE_ENV);
 
 const api = axios.create({
   baseURL: API_URL,
