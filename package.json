@@ -16,9 +16,9 @@
     "axios": "^1.6.0"
   },
 "scripts": {
-  "start": "set PORT=3000 && react-scripts start",
+  "start": "node server.js",
   "start:prod": "node server.js",
-  "server": "node server-working.js",
+  "server": "node server.js",
   "dev": "concurrently \"npm run server\" \"npm start\"",
   "build": "react-scripts build",
   "postinstall": "npm run build"
